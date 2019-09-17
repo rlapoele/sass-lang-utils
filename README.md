@@ -4,6 +4,7 @@
   <a href="https://www.npmjs.com/package/scss-lang-utils"><img src="https://img.shields.io/npm/v/scss-lang-utils.svg" alt="Version"></a>
   <a href="https://www.npmjs.com/package/scss-lang-utils"><img src="https://img.shields.io/npm/l/scss-lang-utils.svg" alt="License"></a>
 </p>
+
 > A small library of commonly used sass functions written in SCSS.
 
 ### Motivation

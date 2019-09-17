@@ -1,6 +1,6 @@
 {
   "name": "scss-lang-utils",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Commonly used Sass utility functions written in SCSS.",
   "repository": {
     "type": "git",
