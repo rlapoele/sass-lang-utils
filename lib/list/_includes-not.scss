@@ -1,0 +1,8 @@
+/// Checks that a list does not contain an element.
+/// @group list
+/// @param {list} $list - the list where this function will search for the element
+/// @param {any} $element - the element to be searched for
+/// @returns {bool} true if the element is not part of the list, false otherwise.
+@function slu-list-includes-not($list, $element) {
+  @return if(index($list, $element),false,true);
+}

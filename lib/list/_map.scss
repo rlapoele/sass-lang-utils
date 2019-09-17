@@ -1,0 +1,59 @@
+/// Executes a function for each list element and returns a new list of transformed items.
+///
+/// In order to pass a list item as argument of the map function, one must include `'item'` with or without quote as one of the `$map-function-args argument`.
+///
+/// The same logic applies to list item index where one must include `'index'` or `'item-index'` or, finally, `'list-item-index'`.
+///
+/// Lastly, a similar approach can be taken to pass the list itself; one can use `'list'` or `'collection'`.
+///
+/// Any other required arguments can also be passed and positioned at any needed place.
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list - the list of item to be processed
+/// @param {string} $map-function-name - the name of the function to be called for each list item
+/// @param {arglist} $map-function-args - arguments to be passed to the map function
+/// @returns {list} a new list containing every list item processed by the given function.
+/// @example scss - slu-list-map function:
+///
+///   $numbers: 1, 2, 3;
+///
+///   @function square($x) {
+///     @return $x * $x;
+///   }
+///
+///   $squared-numbers: slu-list-map($numbers, square, item);
+///
+///   @debug inspect($squared-numbers); // terminal/console output: 1, 4, 9
+///
+@function slu-list-map(
+  $list,
+  $map-function-name,
+  $map-function-args...
+) {
+  $_new-list: ();
+  @if(0 < length($list)) {
+    $_list-item-separator: list-separator($list);
+    $_map-function-args: $map-function-args;
+    $_list-index: 1;
+    @each $_list-item in $list {
+      $_arg-index: 1;
+      @each $_arg in $map-function-args {
+        @if (item == $_arg) {
+          $_map-function-args: set-nth($map-function-args, $_arg-index, $_list-item);
+        }
+        @if ((index == $_arg) or (item-index == $_arg) or (list-item-index == $_arg)) {
+          $_map-function-args: set-nth($map-function-args, $_arg-index, $_list-index);
+        }
+        @if ((list == $_arg) or (collection == $_arg)) {
+          $_map-function-args: set-nth($map-function-args, $_arg-index, $list);
+        }
+        $_arg-index: $_arg-index + 1;
+      }
+      $_new-list-item: call(get-function($map-function-name), $_map-function-args...);
+      $_new-list: append($_new-list, $_new-list-item, $_list-item-separator);
+      $_list-index: $_list-index + 1;
+      $_map-function-args: $map-function-args;
+    }
+  }
+  @return $_new-list;
+}

@@ -1,0 +1,3 @@
+@function slu-list-difference($list1, $list2) {
+  @return slu-list-filter($list1, slu-list-includes-not, $list2, item);
+}

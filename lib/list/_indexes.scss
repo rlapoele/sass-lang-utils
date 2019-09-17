@@ -1,0 +1,9 @@
+/// Builds and returns a list of indexes for the given list.
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list - the list from which to extract the indexes
+/// @returns {list} a list containing the indexes of each item in the list.
+/// @alias slu-list-keys
+@function slu-list-indexes($list) {
+  @return slu-list-keys($list);
+}

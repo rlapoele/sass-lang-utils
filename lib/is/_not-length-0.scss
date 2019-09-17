@@ -1,0 +1,8 @@
+/// Checks a value has length != 0.
+/// @since 1.0.0
+/// @group is
+/// @param {any} $value - the value to evaluate
+/// @returns {bool} true if length(`$value`) != 0, false otherwise.
+@function slu-is-not-length-0($value) {
+  @return 0 != length($value);
+}

@@ -1,0 +1,15 @@
+/// Removes list duplicates.
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list - the list to be _deduped_
+/// @returns {list} a new _deduped_ list.
+@function slu-list-dedupe($list) {
+  $_list-deduped: ();
+  $_list-separator: list-separator($list);
+  @each $_list-item in $list {
+    @if (not(index($_list-deduped, $_list-item))) {
+      $_list-deduped: append($_list-deduped, $_list-item, $_list-separator);
+    }
+  }
+  @return $_list-deduped;
+}

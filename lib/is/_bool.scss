@@ -1,0 +1,9 @@
+/// Checks if a given value is a boolean.
+/// @since 1.0.0
+/// @group is
+/// @param {any} $value - the value to be checked
+/// @returns {bool} true if `$value` is of type 'bool', false otherwise.
+/// @alias slu-is-boolean
+@function slu-is-bool($value) {
+  @return slu-is-boolean($value);
+}

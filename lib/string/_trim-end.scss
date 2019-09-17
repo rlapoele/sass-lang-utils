@@ -1,0 +1,13 @@
+/// Removes whitespaces from the end of a string.
+/// @group string
+/// @since 1.0.0
+/// @param {string} $string - the string to trim
+/// @returns {string} a string trimmed right/end.
+@function slu-string-trim-end($string) {
+  $_string: $string;
+  @while (str-slice($_string, -1, -1) == ' ') {
+    $_string: str-slice($_string, 1, -2);
+  }
+  @return $_string;
+}
+

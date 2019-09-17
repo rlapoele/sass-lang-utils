@@ -1,0 +1,8 @@
+/// Checks if a given value is a list.
+/// @since 1.0.0
+/// @group is
+/// @param {any} $value - the value to be checked
+/// @returns {bool} true if `$value` is of type 'list', false otherwise.
+@function slu-is-list($value) {
+  @return 'list' == type-of($value);
+}

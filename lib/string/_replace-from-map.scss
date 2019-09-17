@@ -1,0 +1,14 @@
+/// Replace perform string replacement on a string using a map of search:replace form.
+/// @group string
+/// @since 1.0.0
+/// @param {String} $string - Initial string
+/// @param {Map} $replacement-map - a map containing search:replace items.
+/// @return {String} - Updated string
+/// @require {function} slu-string-replace
+@function slu-string-replace-from-map($string, $replacement-map) {
+  $_string: $string;
+  @each $_search, $_replace in $replacement-map {
+    $_string: slu-string-replace($_string, $_search, $_replace);
+  }
+  @return $_string;
+}

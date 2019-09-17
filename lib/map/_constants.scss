@@ -1,0 +1,33 @@
+/// Map Constants.
+/// @group map
+/// @since 1.0.0
+/// @returns {string} 'SLU-MAP-KEY-NOT-FOUND'
+@function SLU-MAP-KEY-NOT-FOUND() {
+  @return 'SLU-MAP-KEY-NOT-FOUND';
+}
+
+/// Map Constants.
+/// @group map
+/// @since 1.0.0
+/// @returns {string} 'SLU-MAP-MERGING-MODE-OVERWRITE'
+@function SLU-MAP-MERGING-MODE-OVERWRITE() {
+  @return 'SLU-MAP-MERGING-MODE-OVERWRITE';
+}
+
+/// Map Constants.
+/// @group map
+/// @since 1.0.0
+/// @returns {string} 'SLU-MAP-MERGING-MODE-LIST'
+@function SLU-MAP-MERGING-MODE-LIST() {
+  @return 'SLU-MAP-MERGING-MODE-LIST';
+}
+
+
+/// Map Constants.
+/// @group map
+/// @since 1.0.0
+/// @returns {string} 'SLU-MAP-MERGING-MODE-FLAT-LIST'
+@function SLU-MAP-MERGING-MODE-FLAT-LIST() {
+  @return 'SLU-MAP-MERGING-MODE-FLAT-LIST';
+}
+

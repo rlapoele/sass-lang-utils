@@ -1,0 +1,22 @@
+/// Returns a map deep key value.
+/// @group map
+/// @since 1.0.0
+/// @param {map} $map - the map one wants a deep key value from.
+/// @param {any|list} $deep-key - the deep key one wants to get a value for.
+/// @returns {any} a map deep key value or `SLU-MAP-KEY-NOT-FOUND()` return value.
+/// @requires {function} SLU-MAP-KEY-NOT-FOUND
+@function slu-map-get-deep($map, $deep-key) {
+  @if (0 < length($deep-key)) {
+    $_map: $map;
+    @each $_sub-key in $deep-key {
+      @if ('map' == type-of($_map)) and (map-has-key($_map, $_sub-key)) {
+        $_map: map-get($_map, $_sub-key);
+      }
+      @else {
+        @return SLU-MAP-KEY-NOT-FOUND();
+      }
+    }
+    @return $_map;
+  }
+  @return SLU-MAP-KEY-NOT-FOUND();
+}

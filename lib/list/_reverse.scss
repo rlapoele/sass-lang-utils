@@ -1,0 +1,14 @@
+/// Creates a new list containing the items of the given list but in the reversed order.
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list - the list to be reversed
+/// @returns {list} a new list containing the items of the given list but in the reversed order.
+@function slu-list-reverse($list) {
+  $_new-list: ();
+  $_list-length: length($list);
+  $_list-item-separator: list-separator($list);
+  @for $_list-index from $_list-length to 0 {
+    $_new-list: append($_new-list, nth($list, $_list-index), $_list-item-separator);
+  }
+  @return $_new-list;
+}

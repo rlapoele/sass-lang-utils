@@ -1,0 +1,9 @@
+/// Checks if a string starts with another one.
+/// @group string
+/// @since 1.0.0
+/// @param {string} $string
+/// @param {string} $start-string
+/// @returns {bool} true if $string starts with $start-string, false otherwise.
+@function slu-string-starts-with($string, $start-string) {
+  @return (1 == str-index($string, $start-string));
+}

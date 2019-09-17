@@ -1,0 +1,15 @@
+/// Returns the result of the addition of 2 numbers assuming these are comparable.
+/// @since 1.0.0
+/// @group math
+/// @param {number} $number1 - the first number to be used in this operation
+/// @param {number} $number2 - the second number to be used in this operation
+/// @returns {number} the result of $number1 * $number2 if both are comparable numbers, error out otherwise.
+/// @throw an error if $number1 or $number2 are not numbers or if it cannot be compared.
+@function slu-math-add($number1, $number2) {
+  @if ('number' == type-of($number1)) and
+      ('number' == type-of($number2)) and
+      comparable($number1, $number2) {
+    @return $number1 + $number2;
+  }
+  @error 'slu-math-add: $number1 and $number2 must both be comparable numbers (or dimensions).';
+}

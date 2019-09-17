@@ -1,0 +1,8 @@
+/// Checks if a given value is a string and if it is equal to "".
+/// @since 1.0.0
+/// @group is
+/// @param {any} $value - the value to be checked
+/// @returns {bool} true if `$value` = "", false otherwise.
+@function slu-is-string-empty($value) {
+  @return ('' == $value);
+}

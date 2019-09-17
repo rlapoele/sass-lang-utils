@@ -1,0 +1,8 @@
+/// Checks if a given value is a string.
+/// @since 1.0.0
+/// @group is
+/// @param {any} $value - the value to be checked
+/// @returns {bool} true if `$value` is of type 'string', false otherwise.
+@function slu-is-string($value) {
+  @return ('string' == type-of($value));
+}

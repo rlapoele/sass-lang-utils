@@ -1,0 +1,16 @@
+/// Computes the depth of a list.
+/// @group list
+/// @param {list} $list - the list to be processed
+/// @returns {number} 0 if the list is empty, 1 if the list contains non-list elements, 2 if the list is a list of list(s), etc...
+@function slu-list-depth($list) {
+  @if (0 == length($list)) {
+    @return 0;
+  }
+  $_depth: 1;
+  @each $_list-item in $list {
+    @if ('list' == type-of($_list-item)) {
+      $_depth: 1 + slu-list-depth($_list-item);
+    }
+  }
+  @return $_depth;
+}

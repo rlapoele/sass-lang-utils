@@ -1,0 +1,10 @@
+/// Returns `$then-value` when `$value` is NOT null, `$else-value` otherwise.
+/// @group if
+/// @since 1.0.0
+/// @param {any} $value - the value to be evaluated
+/// @param {any} $then-value - the value to be returned if `$value` is NOT null
+/// @param {any} $else-value [$value] - the value to be returned if `$value` is null
+/// @returns {any} `$then-value` if `$value` is NOT null, `$else-value` otherwise.
+@function slu-if-is-not-null($value, $then-value, $else-value: $value) {
+  @return if(type-of(null) != type-of($value), $then-value, $else-value);
+}

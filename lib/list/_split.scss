@@ -1,0 +1,22 @@
+/// Adds a _separator_ item between each list item.
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list - the list to be processed
+/// @param {any} $separator - the thing to be inserted between each list item
+/// @returns {list} an empty list if the original list is empty, the original list if it contains only 1 item or, finally, a new list where all original items are separated by a _separator_ item.
+@function slu-list-split($list, $separator) {
+  $_list-length: length($list);
+  @if (2 > $_list-length) {
+    @return $list;
+  }
+  $_list-separator: list-separator($list);
+  $_list: nth($list,1);
+  @if ('list' type-of($_list)) {
+    $_list: ($_list,);
+  }
+  @for $_i from 2 to $_list-length + 1 {
+    $_list: append($_list, $separator, $_list-separator);
+    $_list: append($_list, nth($list, $_i), $_list-separator);
+  }
+  @return $_list;
+}

@@ -1,0 +1,8 @@
+/// Checks if a given value is null.
+/// @since 1.0.0
+/// @group is
+/// @param {any} $value - the value to be checked
+/// @returns {bool} true if `$value` is of the same type as null, false otherwise.
+@function slu-is-null($value) {
+  @return type-of(null) == type-of($value);
+}

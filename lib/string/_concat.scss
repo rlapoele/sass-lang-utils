@@ -1,0 +1,9 @@
+/// Concatenates two strings.
+/// @group string
+/// @since 1.0.0
+/// @param {string} string1
+/// @param {string} string2
+/// @returns {string} string1 and string2 concatenated.
+@function slu-string-concat($string1, $string2) {
+  @return '#{$string1}#{$string2}';
+}

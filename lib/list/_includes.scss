@@ -1,0 +1,8 @@
+/// Tests if a list contains an element.
+/// @group list
+/// @param {list} $list - the list where this function will search for the element
+/// @param {any} $element - the element to be searched for
+/// @returns {bool} true if the element is part of the list, false otherwise.
+@function slu-list-includes($list, $element) {
+  @return if(index($list, $element),true,false);
+}

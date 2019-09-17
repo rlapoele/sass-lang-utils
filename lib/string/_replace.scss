@@ -1,0 +1,15 @@
+/// Replace `$search` with `$replace` in `$string`
+/// @group string
+/// @since 1.0.0
+/// @param {String} $string - Initial string
+/// @param {String} $search - Substring to replace
+/// @param {String} $replace [''] - New value
+/// @return {String} - Updated string
+/// @throw (str-index function will) an error if $string is not a string.
+@function slu-string-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + slu-string-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+  @return $string;
+}

@@ -1,0 +1,8 @@
+/// Checks if a given value is a map.
+/// @since 1.0.0
+/// @group is
+/// @param {any} $value - the value to be checked
+/// @returns {bool} true if `$value` is of type 'map', false otherwise.
+@function slu-is-map($value) {
+  @return ('map' == type-of($value));
+}

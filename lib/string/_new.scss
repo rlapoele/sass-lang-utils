@@ -1,0 +1,3 @@
+@function slu-string-new($value) {
+  @return inspect($value);
+}

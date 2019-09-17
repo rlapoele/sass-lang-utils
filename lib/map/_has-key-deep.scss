@@ -1,0 +1,21 @@
+/// Checks if a map has a given deep key.
+/// @group map
+/// @since 1.0.0
+/// @param {map} $map - the map from which one wants to know if it has the given deep key.
+/// @param {any|list} $deep-key - the deep key whose existence needs checking.
+/// @returns {bool} true if the deep key is found, false otherwise.
+@function slu-map-has-key-deep($map, $deep-key) {
+  @if (0 < length($deep-key)) {
+    $_map: $map;
+    @each $_sub-key in $deep-key {
+      @if ('map' == type-of($_map)) and (map-has-key($_map, $_sub-key)) {
+        $_map: map-get($_map, $_sub-key);
+      }
+      @else {
+        @return false;
+      }
+    }
+    @return true;
+  }
+  @return false;
+}

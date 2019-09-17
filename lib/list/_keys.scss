@@ -1,0 +1,22 @@
+/// Returns a list made of the keys (indexes) of each list item
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list - the list from which to extract the keys (indexes)
+/// @returns {list} a list containing the keys (indexes) of each item in the list.
+/// @example scss - slu-list-keys function:
+///
+///   $numbers: 5, 3, 34, 2;
+///
+///   $keys: slu-list-keys($numbers);
+///
+///   @debug inspect($keys); // terminal/console output: 1, 2, 3, 4
+///
+@function slu-list-keys($list) {
+  $_keys: ();
+  $_list-length: length($list);
+  $_list-item-separator: list-separator($list);
+  @for $_index from 1 to $_list-length + 1 {
+    $_keys: append($_keys, $_index, $_list-item-separator);
+  }
+  @return $_keys;
+}

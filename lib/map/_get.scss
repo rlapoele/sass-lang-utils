@@ -1,0 +1,10 @@
+/// Returns a map key value.
+/// @group map
+/// @since 1.0.0
+/// @param {map} $map - the map one wants a key value from.
+/// @param {any} $key - the key one wants to get a value for.
+/// @returns {any} the map key value or `SLU-MAP-KEY-NOT-FOUND()` return value.
+/// @requires {function} SLU-MAP-KEY-NOT-FOUND
+@function slu-map-get($map, $key) {
+  @return if(map-has-key($map, $key), map-get($map, $key), SLU-MAP-KEY-NOT-FOUND());
+}

@@ -1,0 +1,6 @@
+@function slu-list-difference-symmetric($list1, $list2) {
+  @return join(
+            slu-list-filter($list1, slu-list-includes-not, $list2, item),
+            slu-list-filter($list2, slu-list-includes-not, $list1, item)
+          );
+}

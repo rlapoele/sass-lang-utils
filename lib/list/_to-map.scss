@@ -1,0 +1,44 @@
+/// Converts a list to a map where each list item is keyed by its index in the list.
+///
+/// If provided with, this function can apply a prefix and/or a suffix to each map key (list index).
+///
+/// Providing this function with an empty list produces an empty map (=list).
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list - the list to be converted into a map
+/// @param {string\null} $$map-item-key-prefix [''] - a string value to prefix each list item map key with
+/// @param {string\null} $$map-item-key-suffix [''] - a string value to suffix each list item map key with
+/// @returns {map} a map made of each list item as map item value and a list index (prefixed or suffixed) as a map item key.
+@function slu-list-to-map($list, $map-item-key-prefix: '', $map-item-key-suffix: '') {
+  $_map: ();
+  $_list-length: length($list);
+  @if ($_list-length > 0) {
+    $_map-item-key-prefix: if(type-of(null) == type-of($map-item-key-prefix), '', $map-item-key-prefix);
+    $_map-item-key-suffix: if(type-of(null) == type-of($map-item-key-suffix), '', $map-item-key-suffix);
+    @if ('' == $_map-item-key-prefix) {
+      @if ('' == $_map-item-key-suffix) {
+        @for $_i from 1 to $_list-length + 1 {
+          $_map: map-merge($_map, ($_i: nth($list, $_i)));
+        }
+      }
+      @else {
+        @for $_i from 1 to $_list-length + 1 {
+          $_map: map-merge($_map, (#{$_i}#{$_map-item-key-suffix}: nth($list, $_i)));
+        }
+      }
+    }
+    @else {
+      @if ('' == $_map-item-key-suffix) {
+        @for $_i from 1 to $_list-length + 1 {
+          $_map: map-merge($_map, (#{$_map-item-key-prefix}#{$_i}: nth($list, $_i)));
+        }
+      }
+      @else {
+        @for $_i from 1 to $_list-length + 1 {
+          $_map: map-merge($_map, (#{$_map-item-key-prefix}#{$_i}#{$_map-item-key-suffix}: nth($list, $_i)));
+        }
+      }
+    }
+  }
+  @return $_map;
+}

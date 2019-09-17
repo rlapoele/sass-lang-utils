@@ -1,0 +1,20 @@
+/// Converts a value into an empty or a single item list.
+///
+/// If (_value_) is already a list, it will return it as-is.
+///
+/// If (_value_) is equal to `null` it will be return an empty list.
+///
+/// For any other types of value, it will return a single item list containing the (_value_).
+/// @group list
+/// @since 1.0.0
+/// @param {any} $value - the value to be converted.
+/// @returns {list} a new flattened list.
+@function slu-list-from-value($value) {
+  @if (type-of(null) == type-of($value)) {
+    @return ();
+  }
+  @else if ('list' == type-of($value)) {
+    @return $value;
+  }
+  @return append((),$value);
+}

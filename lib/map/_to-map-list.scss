@@ -1,0 +1,8 @@
+@function slu-map-to-map-list($map) {
+  $_keys: map-keys($map);
+  $_list: ();
+  @each $_key in $_keys {
+    $_list: append($_list, ($_key: map-get($map, $_key)));
+  }
+  @return $_list;
+}

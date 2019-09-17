@@ -1,0 +1,20 @@
+/// Recursively tests if a list contains an element.
+///
+/// Compared to `slu-list-includes` this function also checks if list elements are list themselves and when this is the case, it recursively calls itself to check if the sub-list includes the element.
+/// @group list
+/// @param {list} $list - the list where this function will search for the element
+/// @param {any} $element - the element to be searched for
+/// @returns {bool} true if the element is part of the list, false otherwise.
+@function slu-list-includes-deep($list, $element) {
+  @if (index($list, $element)) {
+    @return true;
+  }
+  @each $_list-item in $list {
+    @if ('list' == type-of($_list-item)) {
+      @if (slu-list-includes-deep($_list-item, $element)) {
+        @return true;
+      }
+    }
+  }
+  @return false;
+}

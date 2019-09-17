@@ -1,0 +1,58 @@
+/// The _slu-list-reduce_ function executes a provided reducer function on each item of the list resulting in a single output value.
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list - the list which must be reduced.
+/// @param {string} $reduce-function-name - the reducer name.
+/// @param {any} $reduce-accumulator-initial-value - the accumulator initial value. Is set to the first list item's value if null.
+/// @param {arglist} $reduce-function-args - a list of all parameters that must be passed to the reducer in addition to the accumulator. The accumulator is always passed as the first reducer's argument.
+/// @returns {any} the accumulated/reduced value.
+/// @example scss - slu-list-reduce function:
+///
+///   $numbers: 1, 2, 3, 4;
+///
+///   @function sum($x, $y) {
+///     @return $x + $y;
+///   }
+///
+///   $sum: slu-list-reduce($numbers, sum, 0, item);
+///
+///   @debug inspect($sum); // terminal/console output: 10
+///
+///
+///   $sum: slu-list-reduce($numbers, sum, null, item); // <-- null gets replaced by 1 (the first $numbers element).
+///
+///   @debug inspect($sum); // terminal/console output: 11
+///
+@function slu-list-reduce(
+  $list,
+  $reduce-function-name,
+  $reduce-accumulator-initial-value,
+  $reduce-function-args...
+) {
+  $_reduce-accumulator: null;
+  @if(0 < length($list)) {
+    $_reduce-accumulator: if(type-of(null) == type-of($reduce-accumulator-initial-value), nth($list,1), $reduce-accumulator-initial-value);
+    $_reduce-function-args: join($_reduce-accumulator, $reduce-function-args);
+    $_list-index: 1;
+    @each $_list-item in $list {
+      $_arg-index: 1;
+      @each $_arg in $_reduce-function-args {
+        @if (item == $_arg) {
+          $_reduce-function-args: set-nth($_reduce-function-args, $_arg-index, $_list-item);
+        }
+        @if ((index == $_arg) or (item-index == $_arg) or (list-item-index == $_arg)) {
+          $_reduce-function-args: set-nth($_reduce-function-args, $_arg-index, $_list-index);
+        }
+        @if ((list == $_arg) or (collection == $_arg)) {
+          $_reduce-function-args: set-nth($_reduce-function-args, $_arg-index, $list);
+        }
+        $_arg-index: $_arg-index + 1;
+      }
+      $_reduce-accumulator: call(get-function($reduce-function-name), $_reduce-function-args...);
+      $_reduce-function-args: join($_reduce-accumulator, $reduce-function-args);
+      $_list-index: $_list-index + 1;
+    }
+  }
+  @return $_reduce-accumulator;
+}
+

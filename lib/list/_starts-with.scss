@@ -1,0 +1,9 @@
+/// Tests if a list starts with an element.
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list - the list one wants to compare the first element of with a given element
+/// @param {any} $element - the element that we want to compare the first list element with
+/// @returns {bool} true if the element is the first element of the list, false otherwise.
+@function slu-list-starts-with($list, $element) {
+  @return $element == nth($list, 1);
+}

@@ -1,0 +1,20 @@
+/// Transforms a list of list(s) into a new flat list.
+///
+/// A flat list is a list which does not contain any sub list.
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list - the list to be flattened
+/// @returns {list} a new flattened list.
+@function slu-list-flatten($list) {
+  $_flat-list: ();
+  $_list-item-separator: list-separator($list);
+  @each $_list-item in $list {
+    @if('list' == type-of($_list-item)) {
+      $_flat-list: join($_flat-list, slu-list-flatten($_list-item));
+    }
+    @else {
+      $_flat-list: append($_flat-list, $_list-item, $_list-item-separator);
+    }
+  }
+  @return $_flat-list;
+}

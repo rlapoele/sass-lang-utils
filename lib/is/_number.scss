@@ -1,0 +1,9 @@
+/// Checks if a given value is a unit-less number.
+/// @since 1.0.0
+/// @group is
+/// @param {any} $value - the value to be checked
+/// @returns {bool} true if `$value` is of type 'number' and is unit-less, false otherwise.
+/// @see {function} slu-is-dimension
+@function slu-is-number($value) {
+  @return ('number' == type-of($value)) and unitless($value);
+}

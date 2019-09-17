@@ -1,0 +1,8 @@
+/// Tests if a value is an empty list.
+/// @group is
+/// @since 1.0.0
+/// @param {any} $value - the value to be tested.
+/// @returns {bool} true if `$value` is a list and is empty, false otherwise.
+@function slu-is-list-empty($value) {
+  @return ('list' == type-of($value)) and (0 == length($value));
+}

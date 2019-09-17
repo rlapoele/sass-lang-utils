@@ -1,0 +1,32 @@
+/// String tokenizer - splits a string based on a given separator and returns a list of corresponding tokens.
+/// @group string
+/// @since 1.0.0
+///
+@function slu-string-split($string, $separator) {
+  @if ('' == $string) {
+    @return $string;
+  }
+  $_list: ();
+  $_index-separator: str-index($string, $separator);
+  @if ($_index-separator) {
+    $_token: str-slice($string, 1, $_index-separator - 1);
+    $_separator-length: str-length($separator);
+    @if ($_index-separator + $_separator-length <= str-length($string)) {
+      $_string-tail: str-slice($string, $_index-separator + $_separator-length);
+      $_list-tail: slu-string-split($_string-tail, $separator);
+      @if (() != $_list-tail) {
+        $_list: join($_token, $_list-tail);
+      }
+      @else {
+        $_list: if('' == $_token, (), $_token);
+      }
+    }
+    @else {
+      $_list: if('' == $_token, (), $_token);
+    }
+  }
+  @else {
+    @return ($string,);
+  }
+  @return $_list;
+}

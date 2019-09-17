@@ -1,0 +1,8 @@
+/// Returns the actual separator of a given list.
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list
+/// @returns {string} a string equal to ' ' (space) or to ',' (comma).
+@function slu-list-separator($list) {
+  @return if(space == list-separator($list), ' ', ',');
+}

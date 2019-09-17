@@ -1,0 +1,32 @@
+{
+  "name": "scss-lang-utils",
+  "version": "1.0.0",
+  "description": "Commonly used Sass utility functions written in SCSS.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rlapoele/scss-lang-utils.git"
+  },
+  "author": {
+    "name": "Renaud Lapoële",
+    "email": "rlapoele@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "sass",
+    "scss",
+    "functions",
+    "language",
+    "utility",
+    "utilities",
+    "library"
+  ],
+  "homepage": "https://github.com/rlapoele/scss-lang-utils#readme",
+  "issues": "https://github.com/rlapoele/scss-lang-utils/issues",
+  "scripts": {
+    "generate:docs": "sassdoc lib/"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "sassdoc": "^2.7.1"
+  }
+}

@@ -1,0 +1,23 @@
+/// Returns the tail of a list but starting from the beginning of the list.
+///
+/// Usually a list tail contains all elements of the list except its first. Here, it will contain all elements but the last.
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list - the list from which one wants the tail
+/// @returns {list|SLU-LIST-NO-VALUE} the _reversed_ tail of the given list or SLU-LIST-EMPTY-NO-TAIL() return value if the list length is less than 2.
+/// @requires {function} SLU-LIST-EMPTY-NO-TAIL
+@function slu-list-tail-right($list) {
+  $_list-length: length($list);
+  @if (0 == $_list-length) {
+    @return SLU-LIST-EMPTY-NO-TAIL();
+  }
+  @if (1 == $_list-length) {
+    @return ();
+  }
+  $_tail-right: ();
+  $_list-separator: list-separator($list);
+  @for $_i from 1 to $_list-length {
+    $_tail-right: append($_tail-right, nth($list, $_i), $_list-separator);
+  }
+  @return $_tail-right;
+}

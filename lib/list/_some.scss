@@ -1,0 +1,64 @@
+/// Tests each list element against a predicate and returns true if the predicate returns true for at least 1 element.
+///
+/// In order to pass a list item as argument of the every function, one must include `'item'` with or without quote as one of the `$predicate-function-args` argument.
+///
+/// The same logic applies to list item index where one must include `'index'` or `'item-index'` or, finally, `'list-item-index'`.
+///
+/// Lastly, a similar approach can be taken to pass the list itself; one can use `'list'` or `'collection'`.
+///
+/// Any other required arguments can also be passed and positioned at any needed place.
+/// @group list
+/// @since v1.0.0
+/// @param {list} $list - the list of item to be processed
+/// @param {string} $predicate-function-name - the predicate name to be called for each list item
+/// @param {arglist} $predicate-function-args - arguments to be passed to the predicate function
+/// @returns {bool} true if the predicate returns true for at least 1 list element, false otherwise.
+/// @example scss - slu-list-every function:
+///
+///   $numbers: 1, 2, 3, 4;
+///
+///   @function greater-than($x, $y) {
+///     @return $x > $y;
+///   }
+///
+///   $some-are-greater-than-zero: slu-list-some($numbers, greater-than, item, 0);
+///
+///   @debug inspect($all-are-greater-than-zero); // terminal/console output: true
+///
+///
+///   $some-are-greater-than-three: slu-list-some($numbers, greater-than, item, 3);
+///
+///   @debug inspect($all-are-greater-than-three); // terminal/console output: true
+///
+@function slu-list-some(
+  $list,
+  $predicate-function-name,
+  $predicate-function-args...
+) {
+  @if(0 < length($list)) {
+    $_list-item-separator: list-separator($list);
+    $_predicate-function-args: $predicate-function-args;
+    $_list-index: 1;
+    @each $_list-item in $list {
+      $_arg-index: 1;
+      @each $_arg in $predicate-function-args {
+        @if (item == $_arg) {
+          $_predicate-function-args: set-nth($predicate-function-args, $_arg-index, $_list-item);
+        }
+        @if ((index == $_arg) or (item-index == $_arg) or (list-item-index == $_arg)) {
+          $_predicate-function-args: set-nth($predicate-function-args, $_arg-index, $_list-index);
+        }
+        @if ((list == $_arg) or (collection == $_arg)) {
+          $_predicate-function-args: set-nth($predicate-function-args, $_arg-index, $list);
+        }
+        $_arg-index: $_arg-index + 1;
+      }
+      @if(call(get-function($predicate-function-name), $_predicate-function-args...)) {
+        @return true;
+      }
+      $_list-index: $_list-index + 1;
+      $_predicate-function-args: $predicate-function-args;
+    }
+  }
+  @return false;
+}

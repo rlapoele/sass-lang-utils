@@ -1,0 +1,9 @@
+/// Returns the last element of a list.
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list
+/// @returns {any|string} the last element of the given list or `SLU-LIST-EMPTY-NO-LAST()` return value if the list is empty.
+/// @requires {function} SLU-LIST-EMPTY-NO-LAST
+@function slu-list-last($list) {
+  @return if(0 == length($list), SLU-LIST-EMPTY-NO-LAST(),nth($list, -1));
+}

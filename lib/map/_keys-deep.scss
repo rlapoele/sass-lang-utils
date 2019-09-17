@@ -1,0 +1,22 @@
+/// Collect all map keys (nodes) and return it as a list.
+///
+/// The list can be space or comma separated.
+/// @group map
+/// @since 1.0.0
+/// @param {map} $map - the map one wants to get the keys from.
+/// @param {string} $map-key-separator [comma] - the separator (comma, 'comma', space or 'space') to be used in the list.
+/// @returns {list} the list of collected keys.
+@function slu-map-keys-deep($map, $map-key-separator: comma) {
+  $_keys: ();
+  $_map-key-separator: if(comma == $map-key-separator,comma,space);
+  @each $_key, $_value in $map {
+    @if ('map' == type-of($_value)) {
+      $_keys: append($_keys, $_key);
+      $_keys: join($_keys, slu-map-keys-deep($_value));
+    }
+    @else {
+      $_keys: append($_keys, $_key, $_map-key-separator);
+    }
+  }
+  @return $_keys;
+}

@@ -1,0 +1,51 @@
+/// A map deep merging function to fusion a source map onto a destination map.
+///
+/// By default the (_merging-mode_) is SLU-MAP-MERGING-MODE-OVERWRITE) which means that the source overwrites the destination in case of conflict.
+///
+/// When (_merging-mode_) is SLU-MAP-MERGING-MODE-LIST and in case of conflict, the 2 values are joined to form a list (2 lists will become a list of 2 lists, etc...).
+///
+/// When (_merging-mode_) is SLU-MAP-MERGING-MODE-FLAT-LIST and in case of conflict, the 2 values are joined to form a flat list.
+///
+/// @group map
+/// @since 1.0.0
+/// @param {map} $map-destination - the map, the source will be merged on top of.
+/// @param {map} $map-source - the map to be merged on top of the destination.
+/// @param {string} $merging-mode - a parameter to indicate how the merge must be done.
+/// @returns {map} a new merged map of the source over the destination and as per the merging-mode.
+/// @requires {function} SLU-MAP-MERGING-MODE-OVERWRITE
+/// @requires {function} SLU-MAP-MERGING-MODE-LIST
+/// @requires {function} SLU-MAP-MERGING-MODE-FLAT-LIST
+@function slu-map-merge-deep($map-destination, $map-source, $merging-mode: SLU-MAP-MERGING-MODE-OVERWRITE()) {
+  $_map1: $map-destination;
+  $_map2: $map-source;
+  
+  @each $_map2-key, $_map2-value in $_map2 {
+    @if map-has-key($_map1, $_map2-key) {
+      $_map1-value: map-get($_map1, $_map2-key);
+      
+      @if (('map' == type-of($_map1-value)) and ('map' == type-of($_map2-value))) {
+        $_map1: map-merge($_map1, ($_map2-key: slu-map-merge-deep($_map1-value, $_map2-value, $merging-mode)));
+      }
+      @else {
+        @if (SLU-MAP-MERGING-MODE-OVERWRITE() == $merging-mode) {
+          $_map1: map-merge($_map1, ($_map2-key: $_map2-value));
+        }
+        @else if(SLU-MAP-MERGING-MODE-FLAT-LIST() == $merging-mode) {
+          $_map1: map-merge($_map1, ($_map2-key: join($_map1-value, $_map2-value)));
+        }
+        @else { // MODE-LIST
+          @if ('list' == type-of($_map1-value)) {
+            $_map1: map-merge($_map1, ($_map2-key: append(append((),$_map1-value), $_map2-value)));
+          }
+          @else {
+            $_map1: map-merge($_map1, ($_map2-key: append($_map1-value, $_map2-value)));
+          }
+        }
+      }
+    }
+    @else {
+      $_map1: map-merge($_map1, ($_map2-key: $_map2-value));
+    }
+  }
+  @return $_map1;
+}

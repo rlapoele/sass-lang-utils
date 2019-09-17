@@ -1,0 +1,46 @@
+/// Converts a list to a string representation.
+///
+/// By default, this function will keep the original list item separator.
+///
+/// Custom separator can however be specified using the $list-item-separator parameter.
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list - the list to be converted.
+/// @param {string} $list-item-separator [auto] - the characters string to separate list items.
+/// @returns {string} a string representing the list given as argument.
+/// @requires {function} slu-list-separator
+@function slu-list-to-string(
+  $list,
+  $list-item-separator: auto,
+  $skip-empty-list-item: false
+) {
+  $_string: '';
+  $_list-item-separator:
+    if(
+        auto == $list-item-separator,
+        slu-list-separator($list),
+        $list-item-separator
+    );
+  $_list-length: length($list);
+  @if (0 == $_list-length) {
+    @return $_string;
+  }
+  $_string: nth($list, 1);
+  @if (1 == $_list-length) {
+    @return $_string;
+  }
+  @for $_index from 2 to $_list-length + 1 {
+    $_new-item: nth($list, $_index);
+    @if (
+      $skip-empty-list-item and
+      (slu-is-null($_new-item) or slu-is-string-empty($_new-item) or slu-is-list-empty($_new-item))
+    ) {
+      $_new-item: '';
+    }
+    @else {
+      $_new-item: '#{if($skip-empty-list-item and slu-is-string-empty($_string),'',$_list-item-separator)}#{$_new-item}';
+    }
+    $_string: '#{$_string}#{$_new-item}';
+  }
+  @return $_string;
+}

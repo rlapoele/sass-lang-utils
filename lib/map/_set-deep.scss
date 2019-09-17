@@ -1,0 +1,43 @@
+/// Returns a new map with a deep key value pair set.
+/// @group map
+/// @since 1.0.0
+/// @param {map} $map - the map in which one wants to set a deep key value pair.
+/// @param {any|list} $deep-key - the deep key one wants to set a value for.
+/// @param {any} $value - the value one wants to set the given map and deep-key for.
+/// @returns {map} a new map with the given deep key & value pair set.
+@function slu-map-set-deep($map, $deep-key, $value) {
+  $_deep-key-length: length($deep-key);
+  @if (0 == $_deep-key-length) { @return $map; }
+  @if (1 == $_deep-key-length) {
+    @return map-merge($map, (nth($deep-key,1): $value));
+  }
+
+  $_deep-key-head: nth($deep-key, 1);
+
+  @if (map-has-key($map, $_deep-key-head)) {
+    $_deep-key-tail: ();
+    @for $_i from 2 to $_deep-key-length + 1 {
+      $_deep-key-tail: append($_deep-key-tail, nth($deep-key, $_i));
+    }
+
+    $_sub-map: map-get($map, $_deep-key-head);
+    
+    @if ('map' == type-of($_sub-map)) {
+      @return
+        map-merge(
+            $map,
+            ($_deep-key-head: map-merge($_sub-map, slu-map-set-deep($_sub-map, $_deep-key-tail, $value)))
+        );
+    }
+    @else {
+      @return map-merge($map, ($_deep-key-tail: $value));
+    }
+  }
+  @else {
+    $_map-from-deep-key-value: (nth($deep-key, -1): $value);
+    @for $_i from $_deep-key-length - 1 to 0 {
+      $_map-from-deep-key-value: (nth($deep-key, $_i): $_map-from-deep-key-value);
+    }
+    @return map-merge($map, $_map-from-deep-key-value);
+  }
+}

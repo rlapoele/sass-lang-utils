@@ -1,0 +1,32 @@
+/// List constant
+/// @group list
+/// @since 1.0.0
+/// @returns {string} 'SLU-LIST-EMPTY-NO-FIRST'.
+@function SLU-LIST-EMPTY-NO-FIRST() {
+  @return 'SLU-LIST-EMPTY-NO-FIRST';
+}
+
+/// List constant
+/// @group list
+/// @since 1.0.0
+/// @returns {string} 'SLU-LIST-EMPTY-NO-LAST'.
+@function SLU-LIST-EMPTY-NO-LAST() {
+  @return 'SLU-LIST-EMPTY-NO-LAST';
+}
+
+/// List constant
+/// @group list
+/// @since 1.0.0
+/// @returns {string} 'SLU-LIST-EMPTY-NO-HEAD'.
+@function SLU-LIST-EMPTY-NO-HEAD() {
+  @return 'SLU-LIST-EMPTY-NO-HEAD';
+}
+
+/// List constant
+/// @group list
+/// @since 1.0.0
+/// @returns {string} 'SLU-LIST-EMPTY-NO-TAIL'.
+@function SLU-LIST-EMPTY-NO-TAIL() {
+  @return 'SLU-LIST-EMPTY-NO-TAIL';
+}
+

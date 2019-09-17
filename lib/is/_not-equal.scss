@@ -1,0 +1,9 @@
+/// Checks if a two values are NOT equals.
+/// @since 1.0.0
+/// @group is
+/// @param {any} $value1 - the first value to compare with
+/// @param {any} $value2 - the second value to compare with
+/// @returns {bool} true if `$value1` != `$value2`, false otherwise.
+@function slu-is-not-equal($value1, $value2) {
+  @return $value1 != $value2;
+}

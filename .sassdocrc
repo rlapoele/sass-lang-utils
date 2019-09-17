@@ -1,0 +1,22 @@
+# .sassdocrc
+dest: ./docs
+theme: default
+display:
+  alias: true
+  watermark: true
+package: ./package.json
+basePath: https://github.com/rlapoele/scss-lang-utils/tree/master
+descriptionPath: ./README.md
+groups:
+  if: Evaluation (If...)
+  is: Inspection (Is...)
+  list: List
+  map: Map
+  math: Math (Add, Mul, ...)
+  string: String
+  undefined: General
+sort:
+  - file
+  - group
+  - access<
+  - line<

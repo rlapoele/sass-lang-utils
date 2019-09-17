@@ -1,0 +1,14 @@
+/// Returns the depth of a given map.
+/// @group map
+/// @since 1.0.0
+/// @param {map} $map - the map one wants to the know the depth of
+/// @returns {positive integer} the depth of the map. It will return 0 if $map is empty or if $map is not a 'map'.
+@function slu-map-depth($map) {
+  $_depth: ('map' == type-of($map),1,0);
+  @each $_key, $_value in $map {
+    @if ('map' == type-of($_value)) {
+      $_depth: max(slu-map-depth($_value) + 1, $_depth);
+    }
+  }
+  @return $_depth;
+}

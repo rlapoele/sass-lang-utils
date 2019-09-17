@@ -1,0 +1,61 @@
+/// Uses a function to filter each list element for which the function call returns true.
+///
+/// In order to pass a list item as argument of the filter function, one must include `'item'` with or without quote as one of the `$predicate-function-args` argument.
+///
+/// The same logic applies to list item index where one must include `'index'` or `'item-index'` or, finally, `'list-item-index'`.
+///
+/// Lastly, a similar approach can be taken to pass the list itself; one can use `'list'` or `'collection'`.
+///
+/// Any other required arguments can also be passed and positioned at any needed place.
+/// @group list
+/// @since v1.0.0
+/// @param {list} $list - the list of item to be processed
+/// @param {string} $predicate-function-name - the name of the function to be called for each list item
+/// @param {arglist} $predicate-function-args - arguments to be passed to the filter function
+/// @returns {list} a new list containing every list item for which the function call returned `true`.
+/// @example scss - slu-list-filter function:
+///
+///   $numbers: 1, 2, 3, 4;
+///
+///   @function greater-than($x, $y) {
+///     @return $x > $y;
+///   }
+///
+///   $filtered-numbers: slu-list-filter($numbers, greater-than, item, 2);
+///
+///   @debug inspect($filtered-numbers); // terminal/console output: 3, 4
+///
+///
+@function slu-list-filter(
+  $list,
+  $predicate-function-name,
+  $predicate-function-args...
+) {
+  $_new-list: ();
+  @if(0 < length($list)) {
+    $_list-item-separator: list-separator($list);
+    $_predicate-function-args: $predicate-function-args;
+    $_list-index: 1;
+    @each $_list-item in $list {
+      $_arg-index: 1;
+      @each $_arg in $predicate-function-args {
+        @if (item == $_arg) {
+          $_predicate-function-args: set-nth($predicate-function-args, $_arg-index, $_list-item);
+        }
+        @if ((index == $_arg) or (item-index == $_arg) or (list-item-index == $_arg)) {
+          $_predicate-function-args: set-nth($predicate-function-args, $_arg-index, $_list-index);
+        }
+        @if ((list == $_arg) or (collection == $_arg)) {
+          $_predicate-function-args: set-nth($predicate-function-args, $_arg-index, $list);
+        }
+        $_arg-index: $_arg-index + 1;
+      }
+      @if(call(get-function($predicate-function-name), $_predicate-function-args...)) {
+        $_new-list: append($_new-list, $_list-item, $_list-item-separator);
+      }
+      $_list-index: $_list-index + 1;
+      $_predicate-function-args: $predicate-function-args;
+    }
+  }
+  @return $_new-list;
+}

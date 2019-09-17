@@ -1,0 +1,21 @@
+/// Collects all map values (leaves) and return it as a list.
+///
+/// The list can be space or comma separated.
+/// @group map
+/// @since 1.0.0
+/// @param {map} $map - the map one wants to get the values from.
+/// @param {string} $map-value-separator [comma] - the separator (comma, 'comma', space or 'space') to be used in the list.
+/// @returns {list} the list of collected values.
+@function slu-map-values-deep($map, $map-value-separator: comma) {
+  $_values: ();
+  $_map-value-separator: if(comma == $map-value-separator,comma,space);
+  @each $_key, $_value in $map {
+    @if ('map' == type-of($_value)) {
+      $_values: join($_values, slu-map-values-deep($_value));
+    }
+    @else {
+      $_values: append($_values, $_value, $_map-value-separator);
+    }
+  }
+  @return $_values;
+}

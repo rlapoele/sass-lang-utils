@@ -1,0 +1,21 @@
+/// Returns the tail of a list; a list tail being all the elements of the list except the first.
+/// @group list
+/// @since 1.0.0
+/// @param {list} $list - the list from which one wants the tail
+/// @returns {list\string} the tail of the given list or `SLU-LIST-EMPTY-NO-TAIL()` return value if the list is empty. A list of 1 element returns an empty list as tail.
+/// @requires {function} SLU-LIST-EMPTY-NO-TAIL
+@function slu-list-tail($list) {
+  $_list-length: length($list);
+  @if (0 == $_list-length) {
+    @return SLU-LIST-EMPTY-NO-TAIL();
+  }
+  @if (1 == $_list-length) {
+    @return ();
+  }
+  $_tail: ();
+  $_list-separator: list-separator($list);
+  @for $_i from 2 to $_list-length + 1 {
+    $_tail: append($_tail, nth($list, $_i), $_list-separator);
+  }
+  @return $_tail;
+}

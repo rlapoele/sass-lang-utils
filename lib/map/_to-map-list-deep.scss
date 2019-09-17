@@ -1,0 +1,12 @@
+@function slu-map-to-map-list-deep($map) {
+  $_keys: map-keys($map);
+  $_list: ();
+  @each $_key in $_keys {
+    $_value: map-get($map, $_key);
+    @if ('map' == type-of($_value)) {
+      $_value: slu-map-to-map-list-deep($_value);
+    }
+    $_list: append($_list, ($_key: $_value));
+  }
+  @return $_list;
+}
