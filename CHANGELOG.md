@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+### Release 1.1.1
+- Re-generated docs.
+
 ### Release 1.1.0
 - added slu-list-concat function.
 
