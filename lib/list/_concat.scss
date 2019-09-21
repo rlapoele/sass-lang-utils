@@ -1,0 +1,13 @@
+/// Concatenates 2 values to form a list. Non-list elements are converted to single item lists before concatenation.
+/// @group list
+/// @since 1.1.0
+/// @param {list\any} $value1 - the first element of the future list.
+/// @param {list\any} $value2 - the second element of the future list.
+/// @returns {list} a new list made of $value1 and $value2.
+@function slu-list-concat($value1, $value2) {
+  @return
+    join(
+      if('list' == type-of($value1), $value1, append((), $value1)),
+      if('list' == type-of($value2), $value2, append((), $value2))
+    );
+}
