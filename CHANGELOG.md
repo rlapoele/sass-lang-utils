@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+### Release 1.1.2
+- added missing slu-list-concat entry in list index.
+
 ### Release 1.1.1
 - Re-generated docs.
 
